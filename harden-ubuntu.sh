@@ -1,3 +1,15 @@
+root@vmi1362517:~/hardenscript# tail /etc/ssh/sshd_config
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+PermitRootLogin yes
+Port 2222
+root@vmi1362517:~/hardenscript# vi harden-ubuntu.sh 
 root@vmi1362517:~/hardenscript# vi harden-ubuntu.sh 
 root@vmi1362517:~/hardenscript# vi harden-ubuntu.sh 
 #!/bin/bash
@@ -7,7 +19,6 @@ sudo apt update && apt upgrade -y
 
 # install UFW (Uncomplicated Firewall)
 sudo apt install ufw -y
-
 
 # enable ufw
 sudo ufw enable
@@ -32,12 +43,15 @@ fi
 # enable logging of ufw @ /var/log/ufw.log file
 sudo ufw logging on
 
-# Next Steps
-echo "now list packages with => dpkg --list"
-echo "then get pkg info =>  dpkg --info packageName"
-echo "finally remove all unneeded packages => sudo dpkg --remove package_name
- "
+#change default ssh port 
+if [ "$#" -ne 0 ]; then
+   echo "Port $1" >> /etc/ssh/sshd_config
+   sudo systemctl restart ssh
+else
+   echo "SSH on Port 22"
+fi
 
-                                                           37,0-1        Bot
+# Disable root login
+#sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
 
