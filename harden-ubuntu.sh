@@ -46,6 +46,9 @@ sudo ufw logging on
 #change default ssh port 
 if [ "$#" -ne 0 ]; then
    echo "Port $1" >> /etc/ssh/sshd_config
+   sudo apt install openssh-server -y
+   sudo systemctl enable openssh
+   sudo systemctl start openssh
    sudo systemctl restart ssh
 else
    echo "SSH on Port 22"
