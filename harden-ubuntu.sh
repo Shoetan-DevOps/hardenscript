@@ -12,9 +12,10 @@ rm -rf  ~/endless || true
 # patch server
 echo -e "\n\n******** Patching Server *****\n ************************"
 sudo apt update && apt upgrade -y && apt dist-upgrade
+sleep 3
 
 # enable unattended upgrades
-echo -e "\n\n *********** Enable unattended updates *********"
+echo -e "\n\n\n *********** Enable unattended updates *********"
 sudo apt install -y unattended-upgrades
 sed -i 's#// ${distro_id}:${distro_codename}-updates#${distro_id}:${distro_codename}' /etc/apt/apt.conf.d/50unattended-upgrades
 sed -i 's#// ${distro_id}:${distro_codename}-security#${distro_id}:${distro_codename}-security' /etc/apt/apt.conf.d/50unattended-upgrades
