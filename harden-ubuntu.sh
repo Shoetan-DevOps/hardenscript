@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# enter public IP
+echo -e "*********** Enter your Source IP *********\n"
+read -p "Enter IP address: " IPADDR
+echo
+
 # delete old endlessssh
-echo -e "******** Cheaning Old file *****\n ************************"
+echo -e "\n\n******** Cheaning Old file *****\n ************************"
 rm -rf  ~/endless || true
 
 # patch server
@@ -23,11 +28,13 @@ sudo ufw default allow outgoing
 sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
 
 # allow tcp ports 
-sudo ufw allow 22
+# sudo ufw allow 22
+echo -e "\n***** allow port 22 from IP ****"
+sudo ufw allow from "$IPADDR" to any port 22
 
 # allow specific ssh port
 if [ "$#" -ne 0 ]; then
-   sudo ufw allow "$1"
+   sudo ufw allow from "IPADDR" to any port "$1"
 else
    echo -e "\n\n No Custom SSH Port"
 fi
