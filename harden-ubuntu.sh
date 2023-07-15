@@ -34,7 +34,7 @@ sudo ufw allow from "$IPADDR" to any port 22
 
 # allow specific ssh port
 if [ "$#" -ne 0 ]; then
-   sudo ufw allow from "IPADDR" to any port "$1"
+   sudo ufw allow from "$IPADDR" to any port "$1"
 else
    echo -e "\n\n No Custom SSH Port"
 fi
