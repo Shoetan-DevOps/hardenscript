@@ -69,7 +69,7 @@ fi
 
 echo -e "\n********************* \n Create Ansible user \n\n" 
 # create ansible user and grant sudo
-sudo useradd -m ansible
+sudo useradd -s /bin/bash -m ansible
 echo "ansible ALL=(ALL) ALL" | sudo tee /etc/sudoers.d/ansible
 read -p "Enter ansible password: " PASSWORD
 echo 
