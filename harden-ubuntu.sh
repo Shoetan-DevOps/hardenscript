@@ -19,6 +19,7 @@ echo -e "\n\n\n *********** Enable unattended updates *********"
 sudo apt install -y unattended-upgrades
 sed -i 's#// ${distro_id}:${distro_codename}-updates#${distro_id}:${distro_codename}-updates#' /etc/apt/apt.conf.d/50unattended-upgrades
 sed -i 's#// ${distro_id}:${distro_codename}-security#${distro_id}:${distro_codename}-security#' /etc/apt/apt.conf.d/50unattended-upgrades
+sed -i 's/APT::Periodic::Update-Package-Lists "0"/APT::Periodic::Update-Package-Lists "1";/' /etc/apt/apt.conf.d/20auto-upgrades
 
 # install UFW (Uncomplicated Firewall)
 echo -e "\n\n******** Get UFW *****\n ************************"
