@@ -30,11 +30,11 @@ sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
 # allow tcp ports 
 # sudo ufw allow 22
 echo -e "\n***** allow port 22 from IP ****"
-sudo ufw allow from "$IPADDR" to any port 22
+sudo ufw allow from "$IPADDR" to any port 22 proto tcp
 
 # allow specific ssh port
 if [ "$#" -ne 0 ]; then
-   sudo ufw allow from "$IPADDR" to any port "$1"
+   sudo ufw allow from "$IPADDR" to any port "$1" proto tcp
 else
    echo -e "\n\n No Custom SSH Port"
 fi
